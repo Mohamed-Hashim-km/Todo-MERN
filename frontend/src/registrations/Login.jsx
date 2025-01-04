@@ -9,19 +9,18 @@ import { setCredentials } from "../slices/authSlice";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
 
-  const {userInfo}=useSelector(state=>state.auth)
+  const { userInfo } = useSelector((state) => state.auth);
 
-
-  const [login,{isLoading}] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    const res= await login({ email, password }).unwrap();
-    dispatch(setCredentials(res))
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials(res));
 
       setEmail("");
       setPassword("");
@@ -33,14 +32,12 @@ const Login = () => {
     }
   };
 
-
-
-// ==============for protucted routes  ============= //
-   useEffect(()=>{
-    if(userInfo){
-      navigate("/homepage")
+  // ==============for protucted routes  ============= //
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/homepage");
     }
-   },[navigate,userInfo])
+  }, [navigate, userInfo]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -77,7 +74,7 @@ const Login = () => {
             />
           </div>
           <button type="submit" className="w-full py-3 text-white bg-teal-500 rounded-lg hover:bg-teal-600 transition focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2">
-            {isLoading?<Loader/>:"Login"}
+            {isLoading ? <Loader /> : "Login"}
           </button>
         </form>
         <p className="mt-6 text-sm text-center text-gray-600">

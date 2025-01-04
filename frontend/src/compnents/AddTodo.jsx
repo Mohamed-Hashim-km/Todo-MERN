@@ -9,14 +9,13 @@ const AddTodo = () => {
   const [desc, setDesc] = useState("");
   // const [isLoading, setIsLoading] = useState(false);
 
-  const [addTodo,{isLoading}] = useGetTodoMutation();
+  const [addTodo, { isLoading }] = useGetTodoMutation();
 
   const submitHandler = async (e) => {
     e.preventDefault();
     if (title == "" || desc == "") {
-       toast.error("You Missed Something");
+      toast.error("You Missed Something");
     } else {
-    
       // setIsLoading(true)
       //  await axios.post("/api/todo",{title,desc})
       //  setIsLoading(false)
