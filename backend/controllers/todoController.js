@@ -12,21 +12,29 @@ const addTodo = async (req, res) => {
     user: req.user._id,
   });
   console.log(todo);
-  
+
   res.json(todo);
 };
 
 const getTodos = async (req, res) => {
-  const todos = await Todo.find({user: req.user._id });
+  const todos = await Todo.find({ user: req.user._id });
   res.json(todos);
 };
 
 const deleteTodo = async (req, res) => {
   const { id } = req.params;
+  const todos = await Todo.findById(id);
+  
 
-  await Todo.findByIdAndDelete(id);
+  if (String(req.user._id) == String(todos.user)) {     //checking the current users to do is deleting or not
+    
 
-  res.send("deleted successfully");
+    await Todo.findByIdAndDelete(id);
+
+    res.send("deleted successfully");
+  } else {
+    throw new Error("Not Authorised,No Token");
+  }
 };
 
 const getTodoByID = async (req, res) => {

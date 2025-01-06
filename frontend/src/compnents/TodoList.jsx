@@ -14,11 +14,19 @@ const TodoList = ({ todos}) => {
    const [editTodo]=useEditTodoMutation()
 
   const deleteHandler=async(id)=>{
-    await deleteTodo(id)
+   
+    try {
+      await deleteTodo(id)
     // console.log(id);
     // await axios.delete(`/api/todo/${id}`)
     // getTodoHandler()
-    toast.error("Deleted")
+    toast.success("Deleted")
+      
+    } catch (error) {
+     toast.error(error.data.message) 
+    }
+
+    
   }
 
 

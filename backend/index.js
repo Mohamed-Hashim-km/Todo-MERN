@@ -5,6 +5,10 @@ import routes from "./routes/todoRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import { errorHandler, notfound } from "./middlewares/errorHandler.js";
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv"
+
+dotenv.config();    //dotenv package//
+
 
 conncetDb();
 const app = express();
@@ -15,7 +19,9 @@ app.use(express.json());
 // =====================================//
 app.use(cookieParser());    //convert cookie normal formate
 
-const port = 8000;
+
+
+const port = process.env.PORT
 
 app.get("/", (req, res) => {
   res.send("hello world");
